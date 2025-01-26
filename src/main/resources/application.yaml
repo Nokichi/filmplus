@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: filmplus
+  datasource:
+    generate-unique-name: false
+    name: film_plus_db
