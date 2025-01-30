@@ -9,5 +9,6 @@ public enum GenreEnum {
     WESTERN,
     ROMANCE,
     FANTASY,
-    ADVENTURE
+    ADVENTURE,
+    SCIENCE_FICTION
 }

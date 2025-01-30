@@ -1,22 +1,47 @@
 package ru.jabka.filmplus.model;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.Set;
 
 public class Film {
     private Long id;
     private String name;
     private String description;
-    private Date releaseDate;
+    private LocalDate releaseDate;
     private Integer durationInSeconds;
-    private GenreEnum genre;
+    private Set<GenreEnum> genres;
 
-    public Film(Long id, String name, String description, Date releaseDate, Integer durationInSeconds, GenreEnum genre) {
+    public Film(Long id, String name, String description, LocalDate releaseDate, Integer durationInSeconds, Set<GenreEnum> genres) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.releaseDate = releaseDate;
         this.durationInSeconds = durationInSeconds;
-        this.genre = genre;
+        this.genres = genres;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setReleaseDate(LocalDate releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
+    public void setDurationInSeconds(Integer durationInSeconds) {
+        this.durationInSeconds = durationInSeconds;
+    }
+
+    public void setGenres(Set<GenreEnum> genres) {
+        this.genres = genres;
     }
 
     public Long getId() {
@@ -31,7 +56,7 @@ public class Film {
         return this.description;
     }
 
-    public Date getReleaseDate() {
+    public LocalDate getReleaseDate() {
         return this.releaseDate;
     }
 
@@ -39,7 +64,7 @@ public class Film {
         return this.durationInSeconds;
     }
 
-    public GenreEnum getGenre() {
-        return this.genre;
+    public Set<GenreEnum> getGenres() {
+        return this.genres;
     }
 }
