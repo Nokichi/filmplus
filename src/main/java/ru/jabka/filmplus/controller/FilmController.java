@@ -3,17 +3,25 @@ package ru.jabka.filmplus.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import ru.jabka.filmplus.model.Film;
-import ru.jabka.filmplus.model.GenreEnum;
+import ru.jabka.filmplus.model.Genre;
 import ru.jabka.filmplus.service.FilmService;
 
 import java.time.LocalDate;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/api/v1/film")
 @Tag(name = "Фильмы")
+@RequestMapping("/api/v1/film")
 public class FilmController {
     private final FilmService filmService;
 
@@ -49,7 +57,7 @@ public class FilmController {
     @GetMapping
     public Set<Film> search(@RequestParam(required = false) String name,
                             @RequestParam(required = false) String description,
-                            @RequestParam(required = false) Set<GenreEnum> genres,
+                            @RequestParam(required = false) Set<Genre> genres,
                             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate releaseDate) {
         return filmService.search(name, description, genres, releaseDate);
     }

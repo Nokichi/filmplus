@@ -4,14 +4,18 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import ru.jabka.filmplus.model.Film;
-import ru.jabka.filmplus.model.GenreEnum;
+import ru.jabka.filmplus.model.Genre;
 import ru.jabka.filmplus.model.ReviewEntity;
 import ru.jabka.filmplus.model.User;
 import ru.jabka.filmplus.repository.FilmRepository;
 import ru.jabka.filmplus.repository.UserRepository;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Configuration
 public class AppConfiguration {
@@ -71,29 +75,29 @@ public class AppConfiguration {
                     "Оно",
                     "Фильм по книге Стивена Кинга",
                     LocalDate.of(2017, 3, 20),
-                    7200,
-                    Set.of(GenreEnum.HORROR, GenreEnum.THRILLER));
+                    120,
+                    Set.of(Genre.HORROR, Genre.THRILLER));
             Film dune = new Film(
                     filmRepository.getNextIndex(),
                     "Дюна",
                     "Фильм по книге Фрэнка Герберта",
                     LocalDate.of(2021, 6, 6),
-                    7200,
-                    Set.of(GenreEnum.SCIENCE_FICTION, GenreEnum.ADVENTURE, GenreEnum.DRAMA));
+                    150,
+                    Set.of(Genre.SCIENCE_FICTION, Genre.ADVENTURE, Genre.DRAMA));
             Film oneFlewOverTheCuckoosNest = new Film(
                     filmRepository.getNextIndex(),
                     "Пролетая над гнездом кукушки",
                     "Фильм по книге Кена Кизи",
                     LocalDate.of(1975, 5, 10),
-                    7000,
-                    Set.of(GenreEnum.DRAMA, GenreEnum.COMEDY));
+                    140,
+                    Set.of(Genre.DRAMA, Genre.COMEDY));
             Film theGreenMile = new Film(
                     filmRepository.getNextIndex(),
                     "Зелёная миля",
                     "Фильм по книге Стивена Кинга",
                     LocalDate.of(1999, 2, 12),
-                    10800,
-                    Set.of(GenreEnum.DRAMA, GenreEnum.THRILLER)
+                    185,
+                    Set.of(Genre.DRAMA, Genre.THRILLER)
             );
             films.addAll(List.of(it, dune, oneFlewOverTheCuckoosNest, theGreenMile));
         };

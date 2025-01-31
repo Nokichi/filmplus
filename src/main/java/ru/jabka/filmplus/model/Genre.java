@@ -1,6 +1,6 @@
 package ru.jabka.filmplus.model;
 
-public enum GenreEnum {
+public enum Genre {
     COMEDY,
     HORROR,
     ACTION,

@@ -8,15 +8,15 @@ public class Film {
     private String name;
     private String description;
     private LocalDate releaseDate;
-    private Integer durationInSeconds;
-    private Set<GenreEnum> genres;
+    private Integer duration;
+    private Set<Genre> genres;
 
-    public Film(Long id, String name, String description, LocalDate releaseDate, Integer durationInSeconds, Set<GenreEnum> genres) {
+    public Film(Long id, String name, String description, LocalDate releaseDate, Integer duration, Set<Genre> genres) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.releaseDate = releaseDate;
-        this.durationInSeconds = durationInSeconds;
+        this.duration = duration;
         this.genres = genres;
     }
 
@@ -36,11 +36,11 @@ public class Film {
         this.releaseDate = releaseDate;
     }
 
-    public void setDurationInSeconds(Integer durationInSeconds) {
-        this.durationInSeconds = durationInSeconds;
+    public void setDuration(Integer duration) {
+        this.duration = duration;
     }
 
-    public void setGenres(Set<GenreEnum> genres) {
+    public void setGenres(Set<Genre> genres) {
         this.genres = genres;
     }
 
@@ -60,11 +60,11 @@ public class Film {
         return this.releaseDate;
     }
 
-    public Integer getDurationInSeconds() {
-        return this.durationInSeconds;
+    public Integer getDuration() {
+        return this.duration;
     }
 
-    public Set<GenreEnum> getGenres() {
+    public Set<Genre> getGenres() {
         return this.genres;
     }
 }
