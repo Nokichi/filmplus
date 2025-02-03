@@ -4,49 +4,56 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import ru.jabka.filmplus.exception.BadRequestException;
 import ru.jabka.filmplus.model.User;
+import ru.jabka.filmplus.repository.UserRepository;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.time.LocalDate;
+
+import static java.util.Optional.ofNullable;
 
 @Service
 public class UserService {
-    private static final Set<User> users = new HashSet<>();
+    private final UserRepository userRepository;
+
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public User create(final User user) {
-        validate(user);
-        user.setId((long) users.size() + 1);
-        users.add(user);
+        validateUser(user);
+        user.setId(userRepository.getNextIndex());
+        userRepository.getUsers().add(user);
         return user;
     }
 
     public User getById(final Long id) {
-        return users.stream()
-                .filter(u -> u.getId().equals(id))
-                .findFirst()
-                .orElseThrow(() -> new BadRequestException(String.format("Пользователь по ID=%d не найден!", id)));
+        return userRepository.getById(id);
     }
 
     public User update(final User user) {
-        validate(user);
-        final User existUser = getById(user.getId());
-        if (existUser == null) {
-            return null;
-        }
+        validateUser(user);
+        User existUser = userRepository.getById(user.getId());
         existUser.setName(user.getName());
+        existUser.setLogin(user.getLogin());
+        existUser.setBirthDay(user.getBirthDay());
         existUser.setEmail(user.getEmail());
         return existUser;
     }
 
     public void delete(final Long id) {
-        users.remove(getById(id));
+        userRepository.getUsers().remove(userRepository.getById(id));
     }
 
-    private void validate(final User user) {
-        if (user == null) {
-            throw new BadRequestException("Введите информацию о пользователе");
-        }
+    private void validateUser(final User user) {
+        ofNullable(user).orElseThrow(() -> new BadRequestException("Введите информацию о пользователе"));
         if (!StringUtils.hasText(user.getName())) {
             throw new BadRequestException("Укажите имя пользователя!");
+        }
+        if (!StringUtils.hasText(user.getLogin())) {
+            throw new BadRequestException("Укажите логин пользователя!");
+        }
+        ofNullable(user.getBirthDay()).orElseThrow(() -> new BadRequestException("Укажите дату рождения пользователя!"));
+        if (user.getBirthDay().isAfter(LocalDate.now())) {
+            throw new BadRequestException("Дата рождения пользователя не может быть больше текущей!");
         }
         if (!StringUtils.hasText(user.getEmail())) {
             throw new BadRequestException("Укажите email пользователя!");

@@ -1,13 +1,19 @@
 package ru.jabka.filmplus.model;
 
+import java.time.LocalDate;
+
 public class User {
     private Long id;
     private String name;
+    private String login;
+    private LocalDate birthDay;
     private String email;
 
-    public User(Long id, String name, String email) {
+    public User(Long id, String name, String login, LocalDate birthDay, String email) {
         this.id = id;
         this.name = name;
+        this.login = login;
+        this.birthDay = birthDay;
         this.email = email;
     }
 
@@ -17,6 +23,14 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public void setBirthDay(LocalDate birthDay) {
+        this.birthDay = birthDay;
     }
 
     public void setEmail(String email) {
@@ -29,6 +43,14 @@ public class User {
 
     public String getName() {
         return this.name;
+    }
+
+    public String getLogin() {
+        return this.login;
+    }
+
+    public LocalDate getBirthDay() {
+        return this.birthDay;
     }
 
     public String getEmail() {
