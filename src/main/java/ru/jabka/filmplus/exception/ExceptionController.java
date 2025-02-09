@@ -11,12 +11,12 @@ public class ExceptionController {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiError> handleException(Exception e) {
         return ResponseEntity.internalServerError()
-                .body(new ApiError(e.getMessage()));
+                .body(new ApiError(false, e.getMessage()));
     }
 
     @ExceptionHandler(BadRequestException.class)
     public ResponseEntity<ApiError> handleBadRequestException(BadRequestException e) {
         return ResponseEntity.badRequest()
-                .body(new ApiError(e.getMessage()));
+                .body(new ApiError(false, e.getMessage()));
     }
 }
