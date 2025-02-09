@@ -7,7 +7,7 @@ import ru.jabka.filmplus.model.Movie;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
+import java.sql.Timestamp;
 
 @Component
 public class MovieMapper implements RowMapper<Movie> {
@@ -17,7 +17,7 @@ public class MovieMapper implements RowMapper<Movie> {
                 .id(rs.getLong("id"))
                 .title(rs.getString("title"))
                 .description(rs.getString("description"))
-                .releaseDate(rs.getObject("release_date", LocalDate.class))
+                .releaseDate(rs.getObject("release_date", Timestamp.class).toLocalDateTime().toLocalDate())
                 .duration(rs.getInt("duration"))
                 .genre(Genre.valueOf(rs.getString("genre")))
                 .build();
