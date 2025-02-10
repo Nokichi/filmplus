@@ -17,7 +17,7 @@ import ru.jabka.filmplus.model.Movie;
 import ru.jabka.filmplus.service.MovieService;
 
 import java.time.LocalDate;
-import java.util.Set;
+import java.util.List;
 
 @RestController
 @Tag(name = "Фильмы")
@@ -46,10 +46,10 @@ public class FilmController {
 
     @Operation(summary = "Поиск фильма по параметрам")
     @GetMapping
-    public Set<Movie> search(@RequestParam(required = false) String name,
-                             @RequestParam(required = false) String description,
-                             @RequestParam(required = false) Set<Genre> genres,
-                             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate releaseDate) {
-        return movieService.search(name, description, genres, releaseDate);
+    public List<Movie> search(@RequestParam(required = false) String title,
+                              @RequestParam(required = false) String description,
+                              @RequestParam(required = false) Genre genre,
+                              @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate releaseDate) {
+        return movieService.search(title, description, genre, releaseDate);
     }
 }

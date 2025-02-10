@@ -13,7 +13,7 @@ public class ReviewRepository {
     private static final String INSERT = """
             INSERT INTO filmplus.review (user_id, movie_id, review_text)
             VALUES (:user_id, :movie_id, :review_text)
-            RETURNING *;
+            RETURNING *
             """;
 
     private final NamedParameterJdbcTemplate jdbcTemplate;

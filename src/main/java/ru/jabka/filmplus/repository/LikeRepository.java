@@ -13,7 +13,7 @@ public class LikeRepository {
     private static final String INSERT = """
             INSERT INTO filmplus.like (user_id, movie_id)
             VALUES (:user_id, :movie_id)
-            RETURNING *;
+            RETURNING *
             """;
 
     private final NamedParameterJdbcTemplate jdbcTemplate;

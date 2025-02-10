@@ -8,29 +8,36 @@ import ru.jabka.filmplus.exception.BadRequestException;
 import ru.jabka.filmplus.model.Movie;
 import ru.jabka.filmplus.repository.mapper.MovieMapper;
 
+import java.util.List;
+
 @Repository
 @RequiredArgsConstructor
 public class MovieRepository {
     private static final String INSERT = """
             INSERT INTO filmplus.movie (title, description, release_date, duration, genre)
             VALUES (:title, :description, :release_date, :duration, :genre)
-            RETURNING *;
+            RETURNING *
             """;
 
     private static final String UPDATE = """
             UPDATE filmplus.movie
             SET title = :title, description = :description, release_date = :release_date, duration = :duration, genre = :genre
             WHERE id = :id
-            RETURNING *;
+            RETURNING *
             """;
 
     private static final String GET_BY_ID = """
             SELECT *
             FROM filmplus.movie
-            WHERE id = :id;
+            WHERE id = :id
             """;
 
     private static final String SEARCH = """
+            SELECT *
+            FROM filmplus.movie
+            WHERE title LIKE :title
+            AND description LIKE :description
+            AND genre LIKE :genre
             """;
 
     private final NamedParameterJdbcTemplate jdbcTemplate;
@@ -42,6 +49,14 @@ public class MovieRepository {
 
     public Movie update(Movie movie) {
         return jdbcTemplate.queryForObject(UPDATE, movieToSql(movie), movieMapper);
+    }
+
+    public List<Movie> search(String title, String description, String genre, String releaseDate) {
+        //TODO Реализовать поиск по releaseDate
+        return jdbcTemplate.query(SEARCH, new MapSqlParameterSource()
+                .addValue("title", title)
+                .addValue("description", description)
+                .addValue("genre", genre), movieMapper);
     }
 
     public Movie getById(final Long id) {

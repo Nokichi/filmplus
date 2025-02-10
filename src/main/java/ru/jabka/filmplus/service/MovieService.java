@@ -10,8 +10,8 @@ import ru.jabka.filmplus.model.Movie;
 import ru.jabka.filmplus.repository.MovieRepository;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import static java.util.Optional.ofNullable;
 
@@ -38,10 +38,24 @@ public class MovieService {
     }
 
     @Transactional(readOnly = true)
-    public Set<Movie> search(String name, String description, Set<Genre> genres, LocalDate releaseDate) {
-        Set<Movie> searchResult = new HashSet<>();
-        //TODO реализация поиска через запрос в БД
-        return searchResult;
+    public List<Movie> search(String title, String description, Genre genre, LocalDate releaseDate) {
+        String titleWrapper = "%" + ofNullable(title).orElse("") + "%";
+        String descriptionWrapper = "%" + ofNullable(description).orElse("") + "%";
+        String genreWrapper = "";
+        if (ofNullable(genre).isPresent()) {
+            genreWrapper = genre.name();
+        }
+        genreWrapper = "%" + genreWrapper + "%";
+        String releaseDateCondition = "";
+        if (ofNullable(releaseDate).isPresent()) {
+            releaseDateCondition = releaseDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        }
+        return movieRepository.search(
+                titleWrapper,
+                descriptionWrapper,
+                genreWrapper,
+                releaseDateCondition
+        );
     }
 
     private void validate(final Movie movie) {

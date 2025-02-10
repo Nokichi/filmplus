@@ -13,7 +13,7 @@ public class FriendRepository {
             INSERT INTO filmplus.friend (user_id, friend_id)
             VALUES 
                 (:user_id, :friend_id), 
-                (:friend_id, :user_id);
+                (:friend_id, :user_id)
             """;
 
     private final NamedParameterJdbcTemplate jdbcTemplate;

@@ -14,20 +14,20 @@ public class UserRepository {
     private static final String INSERT = """
             INSERT INTO filmplus.user (name, email, login, birthday)
             VALUES (:name, :email, :login, :birthday)
-            RETURNING *;
+            RETURNING *
             """;
 
     private static final String UPDATE = """
             UPDATE filmplus.user
             SET name = :name, email = :email, login = :login, birthday = :birthday
             WHERE id = :id
-            RETURNING *;
+            RETURNING *
             """;
 
     private static final String GET_BY_ID = """
             SELECT *
             FROM filmplus.user
-            WHERE id = :id;
+            WHERE id = :id
             """;
 
     private final NamedParameterJdbcTemplate jdbcTemplate;
