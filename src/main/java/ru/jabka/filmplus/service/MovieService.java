@@ -46,15 +46,15 @@ public class MovieService {
             genreWrapper = genre.name();
         }
         genreWrapper = "%" + genreWrapper + "%";
-        String releaseDateCondition = "";
+        String releaseDateWrapper = "";
         if (ofNullable(releaseDate).isPresent()) {
-            releaseDateCondition = releaseDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            releaseDateWrapper = releaseDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         }
         return movieRepository.search(
                 titleWrapper,
                 descriptionWrapper,
                 genreWrapper,
-                releaseDateCondition
+                releaseDateWrapper
         );
     }
 

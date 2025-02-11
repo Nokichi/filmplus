@@ -6,7 +6,7 @@ import ru.jabka.filmplus.model.Review;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 @Component
 public class ReviewMapper implements RowMapper<Review> {
@@ -17,7 +17,7 @@ public class ReviewMapper implements RowMapper<Review> {
                 .userId(rs.getLong("user_id"))
                 .movieId(rs.getLong("movie_id"))
                 .reviewText(rs.getString("review_text"))
-                .createdAt(rs.getObject("created_at", LocalDateTime.class))
+                .createdAt(rs.getObject("created_at", Timestamp.class).toLocalDateTime())
                 .build();
     }
 }

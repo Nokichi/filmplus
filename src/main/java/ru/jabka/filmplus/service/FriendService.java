@@ -24,5 +24,8 @@ public class FriendService {
         ofNullable(friendRequest).orElseThrow(() -> new BadRequestException("Введите информацию о добавлении в друзья"));
         ofNullable(friendRequest.userId()).orElseThrow(() -> new BadRequestException("Введите информацию о пользователе, который добавляет в друзья"));
         ofNullable(friendRequest.friendId()).orElseThrow(() -> new BadRequestException("Введите информацию о пользователе, которого добавляют в друзья"));
+        if (friendRequest.userId().equals(friendRequest.friendId())) {
+            throw new BadRequestException("Ошибка: пользователь пытается добавить в друзья самого себя");
+        }
     }
 }

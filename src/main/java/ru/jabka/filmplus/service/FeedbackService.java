@@ -31,11 +31,13 @@ public class FeedbackService {
     }
 
     private void validateLike(final Like like) {
+        ofNullable(like).orElseThrow(() -> new BadRequestException("Укажите информацию об установке лайка за фильм"));
         ofNullable(like.userId()).orElseThrow(() -> new BadRequestException("Укажите ID пользователя, который поставил лайк"));
         ofNullable(like.movieId()).orElseThrow(() -> new BadRequestException("Укажите ID фильма, которому поставили лайк"));
     }
 
     private void validateReview(final Review review) {
+        ofNullable(review).orElseThrow(() -> new BadRequestException("Укажите информацию об отзыве фильма"));
         ofNullable(review.movieId()).orElseThrow(() -> new BadRequestException("Укажите ID фильма, для которого оставлен отзыв"));
         ofNullable(review.userId()).orElseThrow(() -> new BadRequestException("Укажите ID пользователя, который оставил отзыв"));
         if (!StringUtils.hasText(review.reviewText())) {

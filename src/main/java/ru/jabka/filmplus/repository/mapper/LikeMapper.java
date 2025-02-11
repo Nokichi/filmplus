@@ -13,7 +13,7 @@ public class LikeMapper implements RowMapper<Like> {
     public Like mapRow(ResultSet rs, int rowNum) throws SQLException {
         return Like.builder()
                 .userId(rs.getLong("user_id"))
-                .userId(rs.getLong("movie_id"))
+                .movieId(rs.getLong("movie_id"))
                 .build();
     }
 }

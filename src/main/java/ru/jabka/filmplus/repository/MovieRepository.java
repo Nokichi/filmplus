@@ -38,6 +38,7 @@ public class MovieRepository {
             WHERE title LIKE :title
             AND description LIKE :description
             AND genre LIKE :genre
+            AND (:release_date = '' OR release_date = TO_DATE(:release_date, 'YYYY-MM-DD'))
             """;
 
     private final NamedParameterJdbcTemplate jdbcTemplate;
@@ -52,11 +53,11 @@ public class MovieRepository {
     }
 
     public List<Movie> search(String title, String description, String genre, String releaseDate) {
-        //TODO Реализовать поиск по releaseDate
         return jdbcTemplate.query(SEARCH, new MapSqlParameterSource()
                 .addValue("title", title)
                 .addValue("description", description)
-                .addValue("genre", genre), movieMapper);
+                .addValue("genre", genre)
+                .addValue("release_date", releaseDate), movieMapper);
     }
 
     public Movie getById(final Long id) {
