@@ -2,7 +2,7 @@ package ru.jabka.filmplus.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,14 +14,11 @@ import ru.jabka.filmplus.model.User;
 import ru.jabka.filmplus.service.UserService;
 
 @RestController
+@RequiredArgsConstructor
 @Tag(name = "Пользователи")
 @RequestMapping("/api/v1/user")
 public class UserController {
     public final UserService userService;
-
-    public UserController(final UserService userService) {
-        this.userService = userService;
-    }
 
     @Operation(summary = "Создать пользователя")
     @PostMapping
@@ -39,11 +36,5 @@ public class UserController {
     @PatchMapping
     public User update(@RequestBody final User user) {
         return userService.update(user);
-    }
-
-    @Operation(summary = "Удалить пользователя по ID")
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        userService.delete(id);
     }
 }

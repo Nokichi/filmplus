@@ -1,3 +1,8 @@
 spring:
   application:
     name: filmplus
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/filmplus
+    username: test
+    password: ${DB_PG_PWD}
